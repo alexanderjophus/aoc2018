@@ -1,10 +1,13 @@
 extern crate regex;
+extern crate arrayvec;
 use self::regex::Regex;
+use std::collections::HashMap;
+use self::arrayvec::ArrayVec;
 
 pub fn solve() {
      let input = include_str!("day3.txt");
 
-    let p1: u32 = day3p1(input);
+    let p1 = day3p1(input);
     // let p2 = day3p2(input);
 
     println!("Day 3: p1: {}", p1);
@@ -20,30 +23,34 @@ struct Fabric {
     h: u32
 }
 
-fn day3p1(input: &str) -> u32 {
+fn day3p1(input: &str) -> usize {
+    let mut claimed = HashMap::<(u32, u32), ArrayVec<[u32; 8]>>::new();
+
     lazy_static! {
-        static ref RE: Regex = Regex::new(r"#(?P<id>[\d]+) @ (?P<x>[\d]+),(?P<y>[\d]+): (?P<w>[\d]+)x(?P<h>[\d]+)").unwrap();
+        static ref RE: Regex = Regex::new(r"#(?P<id>\d+) @ (?P<x>\d+),(?P<y>\d+): (?P<w>\d+)x(?P<h>\d+)").unwrap();
     }
 
-    let fabrics = RE.captures_iter(input).filter_map(|cap| {
+    for cap in RE.captures_iter(input) {
         let groups = (cap.name("id"), cap.name("x"), cap.name("y"), cap.name("w"), cap.name("h"));
-        match groups {
-            (Some(area), Some(x), Some(y), Some(w), Some(h)) => Some(Fabric {
-                id: area.as_str().parse::<u32>().unwrap(),
+        let fabric = match groups {
+            (Some(id), Some(x), Some(y), Some(w), Some(h)) => Some(Fabric {
+                id: id.as_str().parse::<u32>().unwrap(),
                 x: x.as_str().parse::<u32>().unwrap(),
                 y: y.as_str().parse::<u32>().unwrap(),
                 w: w.as_str().parse::<u32>().unwrap(),
                 h: h.as_str().parse::<u32>().unwrap()
             }),
             _ => None,
-        }
-    });
+        }.unwrap();
 
-    for _fabric in fabrics {
-        
+        for i in fabric.x..fabric.x+fabric.w {
+            for j in fabric.y..fabric.y+fabric.h {
+                claimed.entry((i,j)).or_default().push(fabric.id);
+            }
+        }
     }
 
-    1
+    claimed.values().filter(|v| v.len() > 1 ).count()
 }
 
 #[cfg(test)]

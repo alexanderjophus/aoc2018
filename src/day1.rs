@@ -3,8 +3,8 @@ use std::collections::HashSet;
 pub fn solve() {
     let input = include_str!("day1.txt");
         
-    let p1: i32 = day1p1(input);
-    let p2: i32 = day1p2(input);
+    let p1 = day1p1(input);
+    let p2 = day1p2(input);
 
     println!("Day 1: p1: {}", p1);
     println!("Day 1: p2: {}", p2);

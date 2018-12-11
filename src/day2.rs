@@ -4,7 +4,7 @@ use std::collections::HashMap;
 pub fn solve() {
     let input = include_str!("day2.txt");
 
-    let p1: u32 = day2p1(input);
+    let p1 = day2p1(input);
     let p2 = day2p2(input);
 
     println!("Day 2: p1: {}", p1);
