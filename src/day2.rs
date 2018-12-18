@@ -57,6 +57,7 @@ fn day2p2(input: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use test::Bencher;
 
     #[test]
     fn part1() {
@@ -71,4 +72,16 @@ mod tests {
         assert_eq!("+oo", day2p2("too\ndoo\nabc\nefg\nhij"));
     }
 
+    #[bench]
+    fn bench_part_1(b: &mut Bencher) {
+        b.iter(|| day2p1("abcdef\nbababc\nabbcde\nabcccd\naabcdd\nabcdee\nababab"));
+        b.iter(|| day2p1("aa\naaa"));
+    }
+
+    #[bench]
+    fn bench_part_2(b: &mut Bencher) {
+        b.iter(|| day2p2("ab\nac"));
+        b.iter(|| day2p2("abc\nadc\nacb\neee\nfff"));
+        b.iter(|| day2p2("too\ndoo\nabc\nefg\nhij"));
+    }
 }

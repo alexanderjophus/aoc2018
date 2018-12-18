@@ -31,6 +31,7 @@ fn day1p2(input: &str) -> i32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use test::Bencher;
 
     #[test]
     fn part1() {
@@ -46,5 +47,21 @@ mod tests {
         assert_eq!(10, day1p2("+3\n+3\n+4\n-2\n-4"));
         assert_eq!(5, day1p2("-6\n+3\n+8\n+5\n-6"));
         assert_eq!(14, day1p2("+7\n+7\n-2\n-7\n-4"));
+    }
+
+    #[bench]
+    fn bench_part_1(b: &mut Bencher) {
+        b.iter(|| day1p1("+1\n-2\n+3\n+1"));
+        b.iter(|| day1p1("+1\n+1\n+1"));
+        b.iter(|| day1p1("+1\n+1\n-2"));
+        b.iter(|| day1p1("-1\n-2\n-3"));
+    }
+
+    #[bench]
+    fn bench_part_2(b: &mut Bencher) {
+        b.iter(|| day1p2("+1\n-1"));
+        b.iter(|| day1p2("+3\n+3\n+4\n-2\n-4"));
+        b.iter(|| day1p2("-6\n+3\n+8\n+5\n-6"));
+        b.iter(|| day1p2("+7\n+7\n-2\n-7\n-4"));
     }
 }
