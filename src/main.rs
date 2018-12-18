@@ -1,12 +1,12 @@
 #![feature(test)] extern crate test;
 #[macro_use] extern crate lazy_static;
 
-mod day1;
-mod day2;
-mod day3;
+mod day01;
+mod day02;
+mod day03;
 
 fn main() {
-    day1::solve();
-    day2::solve();
-    day3::solve()
+    day01::solve();
+    day02::solve();
+    day03::solve()
 }

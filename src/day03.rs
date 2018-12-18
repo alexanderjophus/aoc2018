@@ -6,7 +6,7 @@ use self::regex::Regex;
 use self::arrayvec::ArrayVec;
 
 pub fn solve() {
-     let input = include_str!("day3.txt");
+     let input = include_str!("day03.txt");
 
     let p1 = day3p1(input);
     let p2 = day3p2(input);

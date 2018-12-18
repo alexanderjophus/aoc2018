@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 pub fn solve() {
-    let input = include_str!("day1.txt");
+    let input = include_str!("day01.txt");
         
     let p1 = day1p1(input);
     let p2 = day1p2(input);
